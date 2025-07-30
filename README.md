@@ -70,4 +70,5 @@ kubectl apply -f ./k8s/network/ingress.yaml
 # kubectl apply -f k8s/network/be-db.yaml
 # kubectl apply -f k8s/network/ingress-to-be.yaml
 
+kubectl rollout restart deployment wondr-desktop-backend-deployment
 ```
