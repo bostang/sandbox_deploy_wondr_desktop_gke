@@ -54,13 +54,14 @@ kubectl apply -f ./k8s/db/db-secrets.yaml
 kubectl apply -f ./k8s/db/db-service.yaml
 
 # be
-kubectl apply -f ./k8s/be/be-deployment.yaml
 kubectl apply -f ./k8s/be/be-secrets.yaml
-kubectl apply -f ./k8s/be/be-service.yaml
 kubectl apply -f ./k8s/be/be-healthcheck.yaml
 kubectl apply -f ./k8s/be/be-configmaps.yaml
+kubectl apply -f ./k8s/be/be-deployment.yaml
+kubectl apply -f ./k8s/be/be-service.yaml
 
 # fe
+kubectl apply -f ./k8s/fe/fe-secrets.yaml
 kubectl apply -f ./k8s/fe/fe-deployment.yaml
 kubectl apply -f ./k8s/fe/fe-service.yaml
 

@@ -12,6 +12,11 @@ spec:
       labels:
         app: wondr-desktop-backend
     spec:
+      # Menambahkan initContainer untuk menunggu database siap
+      initContainers:
+      - name: wait-for-db
+        image: busybox:1.36.1
+        command: ['sh', '-c', 'until nc -z postgresql-service 5432; do echo waiting for db; sleep 2; done;']
       containers:
       - name: backend-container
         image: asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-be:latest
@@ -27,27 +32,27 @@ spec:
         envFrom:
         - configMapRef:
             name: backend-config
-        # - secretRef:
-        #     name: postgres-credentials
+        # Uncomment dan pastikan secretRef ini aktif
         - secretRef:
-            name: app-secrets
-        env: 
-        - name: FIREBASE_CONFIG_PATH
-          value: model-parsec-465503-p3-firebase-adminsdk-fbsvc-1e9901efad.json
-        - name: DB_HOST
-          value: postgresql-service.backend
-        - name: DB_URL
-          valueFrom:
-            secretKeyRef:
-              name: postgres-credentials
-              key: url
-        - name: DB_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: postgres-credentials
-              key: username
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-credentials
-              key: password
+            name: postgres-credentials
+        env:
+          # Pastikan URL database menggunakan nama service yang benar tanpa suffix namespace
+          - name: SPRING_DATASOURCE_URL
+            value: "jdbc:postgresql://postgresql-service:5432/$(POSTGRES_DB)"
+          # Menggunakan variabel dari secret (ditarik via envFrom)
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials
+                key: username
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials
+                key: password
+          # Pastikan POSTGRES_DB juga tersedia
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials
+                key: database
