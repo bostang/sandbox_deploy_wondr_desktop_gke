@@ -6,14 +6,14 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: postgresql # Label untuk Pod PostgreSQL Anda
+      app: wondr-desktop-db # Label untuk Pod PostgreSQL Anda
   policyTypes:
   - Ingress
   ingress:
   - from:
     - podSelector:
         matchLabels:
-          app: backend # Label untuk Pod backend Anda
+          app: wondr-desktop-backend # Label untuk Pod backend Anda
     ports:
     - protocol: TCP
       port: 5432 # Port default PostgreSQL

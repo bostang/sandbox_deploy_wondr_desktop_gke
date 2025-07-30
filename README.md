@@ -42,14 +42,15 @@ kubectl apply -f ./k8s/db/db-secrets.yaml
 kubectl apply -f ./k8s/db/db-service.yaml
 
 # be
-kubectl apply -f ./k8s/be/backend-deployment.yaml
-kubectl apply -f ./k8s/be/backend-secrets.yaml
-kubectl apply -f ./k8s/be/backend-service.yaml
+kubectl apply -f ./k8s/be/be-deployment.yaml
+kubectl apply -f ./k8s/be/be-secrets.yaml
+kubectl apply -f ./k8s/be/be-service.yaml
+kubectl apply -f ./k8s/be/be-healthcheck.yaml
+kubectl apply -f ./k8s/be/be-configmaps.yaml
 
 # fe
-kubectl apply -f ./k8s/fe/frontend-deployment.yaml
-kubectl apply -f ./k8s/fe/frontend-nginx-config.yaml
-kubectl apply -f ./k8s/fe/frontend-service.yaml
+kubectl apply -f ./k8s/fe/fe-deployment.yaml
+kubectl apply -f ./k8s/fe/fe-service.yaml
 
 # network
 kubectl apply -f ./k8s/network/ingress.yaml

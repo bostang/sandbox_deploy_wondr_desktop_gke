@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: frontend-deployment
   labels:
-    app: frontend
+    app: wondr-desktop-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: wondr-desktop-frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: wondr-desktop-frontend
     spec:
       containers:
       - name: frontend-container

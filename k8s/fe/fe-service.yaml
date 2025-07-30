@@ -6,7 +6,7 @@ spec:
   # type: LoadBalancer
   type: ClusterIP
   selector:
-    app: frontend
+    app: wondr-desktop-frontend
   ports:
     - protocol: TCP
       port: 80

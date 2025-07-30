@@ -4,17 +4,17 @@ metadata:
   name: postgresql
   namespace: backend
   labels:
-    app: postgresql
+    app: wondr-desktop-db
 spec:
   serviceName: "postgresql-service"
   replicas: 1
   selector:
     matchLabels:
-      app: postgresql
+      app: wondr-desktop-db
   template:
     metadata:
       labels:
-        app: postgresql
+        app: wondr-desktop-db
     spec:
       containers:
         - name: postgresql

@@ -6,7 +6,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: backend # Label untuk Pod backend Anda
+      app: wondr-desktop-backend # Label untuk Pod backend Anda
   policyTypes:
   - Ingress
   ingress:

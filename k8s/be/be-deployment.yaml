@@ -6,11 +6,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: wondr-desktop-backend
   template:
     metadata:
       labels:
-        app: backend
+        app: wondr-desktop-backend
     spec:
       containers:
       - name: backend-container

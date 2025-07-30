@@ -4,11 +4,11 @@ metadata:
   name: postgresql-service
   namespace: backend
   labels:
-    app: postgresql
+    app: wondr-desktop-db
 spec:
   type: ClusterIP
   selector:
-    app: postgresql
+    app: wondr-desktop-db
   ports:
     - protocol: TCP
       port: 5432 
