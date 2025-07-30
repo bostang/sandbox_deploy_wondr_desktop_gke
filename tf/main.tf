@@ -1,10 +1,10 @@
 resource "google_compute_network" "custom_network" {
-    name = "custom-vpc"
+    name = "wondr-desktop-vpc"
     auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "custom_subnet" {
-    name          = "custom-subnetwork"
+    name          = "wondr-desktop-subnetwork"
     ip_cidr_range = var.subnet_cidr
     region        = var.region
     network       = google_compute_network.custom_network.id
@@ -24,7 +24,7 @@ resource "google_compute_firewall" "allow-internal" {
 
 #Firewall for External Communication
 resource "google_compute_firewall" "allow-external" {
-    name = "external-firewall"
+    name = "wondr-desktop-external-firewall"
     network = google_compute_network.custom_network.id
 
     allow {
