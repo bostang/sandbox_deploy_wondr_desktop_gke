@@ -19,6 +19,9 @@ spec:
         image: asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest
         ports:
           - containerPort: 80
+        envFrom:
+        - secretRef:
+            name: firebase-credentials
         resources:
           requests:
             memory: "64Mi"

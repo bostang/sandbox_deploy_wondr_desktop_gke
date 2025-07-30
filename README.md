@@ -11,6 +11,16 @@ terraform plan -out tfplan
 terraform apply -auto-approve tfplan
 ```
 
+**Langkah 0.5** : atur cluster di cloud terminal menjadi cluster saat ini
+
+```bash
+# lihat konteks saat ini
+kubectl config current-context --project primeval-rune-467212-t9
+
+# ubah konteks kubectl menjadi berinteraksi dgn cluster kita
+gcloud container clusters get-credentials wondr-desktop-cluster --zone asia-southeast1-a --project primeval-rune-467212-t9
+```
+
 **Langkah 1** : Build & Push Docker Image
 
 ```bash
@@ -20,6 +30,8 @@ terraform apply -auto-approve tfplan
     # └── frontend-secure-onboarding-system
 
 # frontend
+# PASTIKAN BAHWA JSON FILE FIREBASE SUDAH ADA DI FE DAN BE!
+
 docker build -t asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest ./frontend-secure-onboarding-system
 docker push asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest
 
