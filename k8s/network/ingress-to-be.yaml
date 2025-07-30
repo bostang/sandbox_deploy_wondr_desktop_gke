@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-to-backend
+  namespace: backend # Kebijakan ini diterapkan di namespace 'backend'
+spec:
+  podSelector:
+    matchLabels:
+      app: backend # Label untuk Pod backend Anda
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          # Label namespace tempat Ingress Controller Anda berada
+          # Misalnya, jika GKE Ingress Controller otomatis, ini bisa menjadi IP CIDR dari GCLB.
+          # Jika Nginx Ingress Controller, ini akan menjadi label namespace 'ingress-nginx' atau sejenisnya.
+          # Penting: Ini bisa bervariasi tergantung implementasi Ingress Controller Anda.
+          # Untuk GKE Ingress Controller, seringkali tidak perlu Network Policy spesifik untuk ini
+          # karena GCLB adalah di luar cluster dan akan diizinkan oleh firewall GKE.
+          # Jika Anda menggunakan Nginx Ingress Controller, labelnya bisa 'name: ingress-controller-namespace'.
+    # Jika Anda ingin lebih spesifik, Anda bisa menambahkan podSelector di bawah namespaceSelector
+    # - podSelector:
+    #     matchLabels:
+    #       app.kubernetes.io/name: ingress-nginx # Contoh label Pod Nginx Ingress
+    ports:
+    - protocol: TCP
+      port: 8080 # Port Service backend

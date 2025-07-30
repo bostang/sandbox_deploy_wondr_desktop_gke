@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-to-postgresql
+  namespace: backend # Kebijakan ini diterapkan di namespace 'backend'
+spec:
+  podSelector:
+    matchLabels:
+      app: postgresql # Label untuk Pod PostgreSQL Anda
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: backend # Label untuk Pod backend Anda
+    ports:
+    - protocol: TCP
+      port: 5432 # Port default PostgreSQL

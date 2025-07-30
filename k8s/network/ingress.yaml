@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-ingress
+  namespace: frontend # Ingress berada di namespace 'frontend'
+spec:
+  rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: frontend-service # Service frontend di namespace 'frontend'
+              port:
+                number: 80
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              # Menggunakan FQDN untuk Service backend di namespace 'backend'
+              name: backend-service.backend.svc.cluster.local
+              port:
+                number: 8080 # Port service backend Anda
