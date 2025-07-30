@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgresql
+  name: wondr-desktop-db
   labels:
     app: wondr-desktop-db
 spec:
