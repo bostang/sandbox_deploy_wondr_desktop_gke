@@ -20,7 +20,7 @@ spec:
       - name: backend-container
         image: asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-be:latest
         ports:
-        - containerPort: 8081
+        - containerPort: 8080
         resources:
           requests:
             memory: "512Mi"
