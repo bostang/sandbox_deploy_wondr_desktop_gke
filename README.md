@@ -34,26 +34,26 @@ docker push asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-be:latest
 # lakukan di folder root (.)
 
 # buat namespace
-kubectl apply -f k8s/namespaces.yaml
+# kubectl apply -f k8s/namespaces.yaml
 
 # db
-kubectl apply -f k8s/db/db-deployment.yaml
-kubectl apply -f k8s/db/db-secrets.yaml
-kubectl apply -f k8s/db/db-service.yaml
+kubectl apply -f ./k8s/db/db-deployment.yaml
+kubectl apply -f ./k8s/db/db-secrets.yaml
+kubectl apply -f ./k8s/db/db-service.yaml
 
 # be
-kubectl apply -f k8s/be/backend-deployment.yaml
-kubectl apply -f k8s/be/backend-secrets.yaml
-kubectl apply -f k8s/be/backend-service.yaml
+kubectl apply -f ./k8s/be/backend-deployment.yaml
+kubectl apply -f ./k8s/be/backend-secrets.yaml
+kubectl apply -f ./k8s/be/backend-service.yaml
 
 # fe
-kubectl apply -f k8s/fe/frontend-deployment.yaml
-kubectl apply -f k8s/fe/frontend-nginx-config.yaml
-kubectl apply -f k8s/fe/frontend-service.yaml
+kubectl apply -f ./k8s/fe/frontend-deployment.yaml
+kubectl apply -f ./k8s/fe/frontend-nginx-config.yaml
+kubectl apply -f ./k8s/fe/frontend-service.yaml
 
 # network
-kubectl apply -f k8s/network/ingress.yaml
-kubectl apply -f k8s/network/be-db.yaml
-kubectl apply -f k8s/network/ingress-to-be.yaml
+kubectl apply -f ./k8s/network/ingress.yaml
+# kubectl apply -f k8s/network/be-db.yaml
+# kubectl apply -f k8s/network/ingress-to-be.yaml
 
 ```

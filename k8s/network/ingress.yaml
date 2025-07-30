@@ -17,7 +17,8 @@ spec:
           pathType: Prefix
           backend:
             service:
-              # Menggunakan FQDN untuk Service backend di namespace 'backend'
-              name: backend-service.backend.svc.cluster.local
+              # Menggunakan nama service saja.
+              # Ingress controller akan mencari service ini di namespace 'default' atau namespace di mana Ingress dideploy.
+              name: backend-service
               port:
                 number: 8080 # Port service backend Anda
