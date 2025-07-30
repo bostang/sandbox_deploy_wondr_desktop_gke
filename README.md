@@ -70,5 +70,33 @@ kubectl apply -f ./k8s/network/ingress.yaml
 # kubectl apply -f k8s/network/be-db.yaml
 # kubectl apply -f k8s/network/ingress-to-be.yaml
 
+
+kubectl delete -f ./k8s/be/be-deployment.yaml
 kubectl rollout restart deployment wondr-desktop-backend-deployment
+```
+
+### Build Frontnend dengan argumen
+
+> untuk memastikan environment variable terpasang
+
+```bash
+docker build \
+  --build-arg VITE_BACKEND_BASE_URL=http://34.8.228.44 \
+  --build-arg VITE_VERIFICATOR_BASE_URL=http://34.8.228.44 \
+  --build-arg VITE_FIREBASE_API_KEY=AIzaSyCTXgqBktnmUo8z5VkxMuwBpLkBGZ_syj0 \
+  --build-arg VITE_FIREBASE_AUTH_DOMAIN=model-parsec-465503-p3.firebaseapp.com \
+  --build-arg VITE_FIREBASE_PROJECT_ID=model-parsec-465503-p3 \
+  --build-arg VITE_FIREBASE_STORAGE_BUCKET=model-parsec-465503-p3.firebasestorage.app \
+  --build-arg VITE_FIREBASE_MESSAGING_SENDER_ID="371655033224" \
+  --build-arg VITE_FIREBASE_APP_ID="1:371655033224:web:0b124bca5fca9b65a67a3d" \
+  -t asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest \
+  ./frontend-secure-onboarding-system
+
+docker push asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest
+
+kubectl delete -f ./k8s/fe/fe-deployment.yaml
+kubectl apply -f ./k8s/fe/fe-deployment.yaml
+# kubectl rollout restart deployment wondr-desktop-frontend-deployment
+
+# catatan : http://http://34.8.228.44 merupakan endpoint dari ingress
 ```

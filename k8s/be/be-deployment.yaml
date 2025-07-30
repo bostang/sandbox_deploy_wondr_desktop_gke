@@ -36,7 +36,7 @@ spec:
         env:
           # Pastikan Anda menggunakan nama variabel lingkungan yang sama dengan yang ada di application.properties
           - name: DB_URL
-            value: "jdbc:postgresql://postgresql-service:5432/$(POSTGRES_DB)"
+            value: "jdbc:postgresql://postgresql-service:5432/${POSTGRES_DB}"
           - name: DB_USERNAME
             valueFrom:
               secretKeyRef:
