@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend-container
-        image: gcr.io/model-parsec-465503-p3/backend-secure-onboarding-system:latest
+        image: asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-be:latest
         ports:
         - containerPort: 8081
         resources:

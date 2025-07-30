@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: frontend-container
-        image: gcr.io/model-parsec-465503-p3/frontend-secure-onboarding-system:latest
+        image: asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest
         ports:
           - containerPort: 80
         resources:
