@@ -98,5 +98,24 @@ kubectl delete -f ./k8s/fe/fe-deployment.yaml
 kubectl apply -f ./k8s/fe/fe-deployment.yaml
 # kubectl rollout restart deployment wondr-desktop-frontend-deployment
 
+
+# untuk CORS policy backend, ubah.
+
+# frontend : IP dari ingress (http://)
+# verifikator : cloud run
+# DUKCAPIL_SERVICE_URL: "https://verificator-secure-onboarding-system-wlxypujzrq-as.a.run.app"
+# BACKEND_BASE_URL: "http://http://34.8.228.44"
+  
+
+kubectl delete -f ./k8s/be/be-configmaps.yaml
+kubectl delete -f ./k8s/be/be-deployment.yaml
+
+
+
+
+kubectl apply -f ./k8s/be/be-configmaps.yaml
+kubectl apply -f ./k8s/be/be-deployment.yaml
+
+
 # catatan : http://http://34.8.228.44 merupakan endpoint dari ingress
 ```
