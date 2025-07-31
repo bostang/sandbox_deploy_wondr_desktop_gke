@@ -9,4 +9,5 @@ spec:
     timeoutSec: 5
     healthyThreshold: 1
     unhealthyThreshold: 2
-    requestPath: / # Ganti dengan path health check Anda
+    # requestPath: / # Ganti dengan path health check Anda
+    requestPath: /api/auth/health # Ubah ini ke endpoint health check yang valid di backend Anda

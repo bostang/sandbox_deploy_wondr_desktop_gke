@@ -74,6 +74,8 @@ kubectl apply -f ./k8s/network/ingress.yaml
 
 kubectl delete -f ./k8s/be/be-deployment.yaml
 kubectl rollout restart deployment wondr-desktop-backend-deployment
+
+kubectl describe pods [nama_pods]
 ```
 
 ### Build Frontend dengan argumen
@@ -94,7 +96,7 @@ docker build \
   ./frontend-secure-onboarding-system
 
 docker build \
-  --build-arg VITE_BACKEND_BASE_URL=http://http://34.120.175.129 \
+  --build-arg VITE_BACKEND_BASE_URL=GANTISAYA \
   --build-arg VITE_VERIFICATOR_BASE_URL=https://verificator-secure-onboarding-system-441501015598.asia-southeast1.run.app \
   --build-arg VITE_FIREBASE_API_KEY=AIzaSyCTXgqBktnmUo8z5VkxMuwBpLkBGZ_syj0 \
   --build-arg VITE_FIREBASE_AUTH_DOMAIN=model-parsec-465503-p3.firebaseapp.com \
