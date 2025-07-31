@@ -84,9 +84,10 @@ kubectl rollout restart deployment wondr-desktop-backend-deployment
 kubectl describe pods [nama_pods]
 ```
 
-### Troubleshooting Frontend
+### Troubleshooting Frontend / Update perubahan kode di environment production
 
 ```bash
+# lakukan di root (.)
 # lakukan modifikasi pada kode sumber
 
 # build & push ulang docker
@@ -104,19 +105,23 @@ docker build \
 
 docker push asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest
 
+# pindah ke folder /sandbox_deploy_windor_desktop_gke/
 # re-apply manifest
 kubectl delete -f ./k8s/fe/fe-deployment.yaml
 kubectl apply -f ./k8s/fe/fe-deployment.yaml
 ```
 
-### Troubleshooting Backend
+### Troubleshooting Backend / Update perubahan kode di environment production
 
 ```bash
+# lakukan di root (.)
 # lakukan modifikasi pada kode sumber
 
 # build & push ulang docker
 docker build -t asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-be:latest ./backend-secure-onboarding-system
 docker push asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-be:latest
+
+# pindah ke folder /sandbox_deploy_windor_desktop_gke/
 
 # re-apply manifest
 kubectl delete -f ./k8s/be/be-configmaps.yaml
