@@ -75,14 +75,26 @@ kubectl delete -f ./k8s/be/be-deployment.yaml
 kubectl rollout restart deployment wondr-desktop-backend-deployment
 ```
 
-### Build Frontnend dengan argumen
+### Build Frontend dengan argumen
 
 > untuk memastikan environment variable terpasang
 
 ```bash
 docker build \
+  --build-arg VITE_BACKEND_BASE_URL=http://backend-service.backend:8080 \
+  --build-arg VITE_VERIFICATOR_BASE_URL=https://verificator-secure-onboarding-system-441501015598.asia-southeast1.run.app \
+  --build-arg VITE_FIREBASE_API_KEY=AIzaSyCTXgqBktnmUo8z5VkxMuwBpLkBGZ_syj0 \
+  --build-arg VITE_FIREBASE_AUTH_DOMAIN=model-parsec-465503-p3.firebaseapp.com \
+  --build-arg VITE_FIREBASE_PROJECT_ID=model-parsec-465503-p3 \
+  --build-arg VITE_FIREBASE_STORAGE_BUCKET=model-parsec-465503-p3.firebasestorage.app \
+  --build-arg VITE_FIREBASE_MESSAGING_SENDER_ID="371655033224" \
+  --build-arg VITE_FIREBASE_APP_ID="1:371655033224:web:0b124bca5fca9b65a67a3d" \
+  -t asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest \
+  ./frontend-secure-onboarding-system
+
+docker build \
   --build-arg VITE_BACKEND_BASE_URL=http://34.8.228.44 \
-  --build-arg VITE_VERIFICATOR_BASE_URL=http://34.8.228.44 \
+  --build-arg VITE_VERIFICATOR_BASE_URL=https://verificator-secure-onboarding-system-441501015598.asia-southeast1.run.app \
   --build-arg VITE_FIREBASE_API_KEY=AIzaSyCTXgqBktnmUo8z5VkxMuwBpLkBGZ_syj0 \
   --build-arg VITE_FIREBASE_AUTH_DOMAIN=model-parsec-465503-p3.firebaseapp.com \
   --build-arg VITE_FIREBASE_PROJECT_ID=model-parsec-465503-p3 \
@@ -116,4 +128,19 @@ kubectl apply -f ./k8s/be/be-deployment.yaml
 kubectl apply -f ./k8s/be/be-service.yaml
 
 # catatan : http://http://34.8.228.44 merupakan endpoint dari ingress
+```
+
+### Curl Test Verifikator
+
+```bash
+curl -X POST \
+  https://verificator-secure-onboarding-system-441501015598.asia-southeast1.run.app/api/dukcapil/verify-nik \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "nik": "3175031234567890",
+    "namaLengkap": "John Doe",
+    "tanggalLahir": "1990-05-15"
+  }'
+
+
 ```
