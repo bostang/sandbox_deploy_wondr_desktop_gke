@@ -94,7 +94,7 @@ docker build \
   ./frontend-secure-onboarding-system
 
 docker build \
-  --build-arg VITE_BACKEND_BASE_URL=http://34.8.228.44 \
+  --build-arg VITE_BACKEND_BASE_URL=http://http://34.120.175.129 \
   --build-arg VITE_VERIFICATOR_BASE_URL=https://verificator-secure-onboarding-system-441501015598.asia-southeast1.run.app \
   --build-arg VITE_FIREBASE_API_KEY=AIzaSyCTXgqBktnmUo8z5VkxMuwBpLkBGZ_syj0 \
   --build-arg VITE_FIREBASE_AUTH_DOMAIN=model-parsec-465503-p3.firebaseapp.com \
@@ -145,3 +145,7 @@ curl -X POST \
 
 
 ```
+
+## PERINGATAN
+
+Urutan path pada ingress berpengaruh. Usahakan taruh yang paling spesifik di atas seperti `/api/auth` lalu yang lebih umum seperti `/` di bawah.
