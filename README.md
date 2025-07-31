@@ -31,8 +31,20 @@ gcloud container clusters get-credentials wondr-desktop-cluster --zone asia-sout
 
 # frontend
 # PASTIKAN BAHWA JSON FILE FIREBASE SUDAH ADA DI FE DAN BE!
+# Build Frontend dengan argumen -> untuk memastikan environment variable terpasang
+# kalau dijadikan secrets di .yaml, ia tidak terbaca
+docker build \
+  --build-arg VITE_BACKEND_BASE_URL=GANTISAYA \
+  --build-arg VITE_VERIFICATOR_BASE_URL=https://verificator-secure-onboarding-system-441501015598.asia-southeast1.run.app \
+  --build-arg VITE_FIREBASE_API_KEY=AIzaSyCTXgqBktnmUo8z5VkxMuwBpLkBGZ_syj0 \
+  --build-arg VITE_FIREBASE_AUTH_DOMAIN=model-parsec-465503-p3.firebaseapp.com \
+  --build-arg VITE_FIREBASE_PROJECT_ID=model-parsec-465503-p3 \
+  --build-arg VITE_FIREBASE_STORAGE_BUCKET=model-parsec-465503-p3.firebasestorage.app \
+  --build-arg VITE_FIREBASE_MESSAGING_SENDER_ID="371655033224" \
+  --build-arg VITE_FIREBASE_APP_ID="1:371655033224:web:0b124bca5fca9b65a67a3d" \
+  -t asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest \
+  ./frontend-secure-onboarding-system
 
-docker build -t asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest ./frontend-secure-onboarding-system
 docker push asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest
 
 # backend
@@ -44,9 +56,6 @@ docker push asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-be:latest
 
 ```bash
 # lakukan di folder root (.)
-
-# buat namespace
-# kubectl apply -f k8s/namespaces.yaml
 
 # db
 kubectl apply -f ./k8s/db/db-deployment.yaml
@@ -68,9 +77,6 @@ kubectl apply -f ./k8s/fe/fe-service.yaml
 # network
 kubectl delete -f ./k8s/network/ingress.yaml
 kubectl apply -f ./k8s/network/ingress.yaml
-# kubectl apply -f k8s/network/be-db.yaml
-# kubectl apply -f k8s/network/ingress-to-be.yaml
-
 
 kubectl delete -f ./k8s/be/be-deployment.yaml
 kubectl rollout restart deployment wondr-desktop-backend-deployment
@@ -78,23 +84,12 @@ kubectl rollout restart deployment wondr-desktop-backend-deployment
 kubectl describe pods [nama_pods]
 ```
 
-### Build Frontend dengan argumen
-
-> untuk memastikan environment variable terpasang
+### Troubleshooting Frontend
 
 ```bash
-docker build \
-  --build-arg VITE_BACKEND_BASE_URL=http://backend-service.backend:8080 \
-  --build-arg VITE_VERIFICATOR_BASE_URL=https://verificator-secure-onboarding-system-441501015598.asia-southeast1.run.app \
-  --build-arg VITE_FIREBASE_API_KEY=AIzaSyCTXgqBktnmUo8z5VkxMuwBpLkBGZ_syj0 \
-  --build-arg VITE_FIREBASE_AUTH_DOMAIN=model-parsec-465503-p3.firebaseapp.com \
-  --build-arg VITE_FIREBASE_PROJECT_ID=model-parsec-465503-p3 \
-  --build-arg VITE_FIREBASE_STORAGE_BUCKET=model-parsec-465503-p3.firebasestorage.app \
-  --build-arg VITE_FIREBASE_MESSAGING_SENDER_ID="371655033224" \
-  --build-arg VITE_FIREBASE_APP_ID="1:371655033224:web:0b124bca5fca9b65a67a3d" \
-  -t asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest \
-  ./frontend-secure-onboarding-system
+# lakukan modifikasi pada kode sumber
 
+# build & push ulang docker
 docker build \
   --build-arg VITE_BACKEND_BASE_URL=GANTISAYA \
   --build-arg VITE_VERIFICATOR_BASE_URL=https://verificator-secure-onboarding-system-441501015598.asia-southeast1.run.app \
@@ -109,19 +104,21 @@ docker build \
 
 docker push asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-fe:latest
 
+# re-apply manifest
 kubectl delete -f ./k8s/fe/fe-deployment.yaml
 kubectl apply -f ./k8s/fe/fe-deployment.yaml
-# kubectl rollout restart deployment wondr-desktop-frontend-deployment
+```
 
+### Troubleshooting Backend
 
-# untuk CORS policy backend, ubah.
+```bash
+# lakukan modifikasi pada kode sumber
 
-# frontend : IP dari ingress (http://)
-# verifikator : cloud run
-# DUKCAPIL_SERVICE_URL: "https://verificator-secure-onboarding-system-wlxypujzrq-as.a.run.app"
-# BACKEND_BASE_URL: "http://http://34.8.228.44"
-  
+# build & push ulang docker
+docker build -t asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-be:latest ./backend-secure-onboarding-system
+docker push asia.gcr.io/primeval-rune-467212-t9/wondr-desktop-be:latest
 
+# re-apply manifest
 kubectl delete -f ./k8s/be/be-configmaps.yaml
 kubectl delete -f ./k8s/be/be-deployment.yaml
 kubectl delete -f ./k8s/be/be-service.yaml
@@ -146,10 +143,8 @@ curl -X POST \
     "namaLengkap": "John Doe",
     "tanggalLahir": "1990-05-15"
   }'
-
-
 ```
 
-## PERINGATAN
+## Catatan
 
-Urutan path pada ingress berpengaruh. Usahakan taruh yang paling spesifik di atas seperti `/api/auth` lalu yang lebih umum seperti `/` di bawah.
+1. Urutan path pada ingress berpengaruh. Usahakan taruh yang paling spesifik di atas seperti `/api/auth` lalu yang lebih umum seperti `/` di bawah.
