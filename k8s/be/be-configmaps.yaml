@@ -8,6 +8,7 @@ data:
   DUKCAPIL_SERVICE_URL: "https://verificator-secure-onboarding-system-wlxypujzrq-as.a.run.app"
   BACKEND_BASE_URL: "http://34.120.175.129"
   CORS_ALLOWED_ORIGINS: "http://34.120.175.129"
-  FIREBASE_CONFIG_PATH: "model-parsec-465503-p3-firebase-adminsdk-fbsvc-1e9901efad.json"
+  # FIREBASE_CONFIG_PATH: "model-parsec-465503-p3-firebase-adminsdk-fbsvc-1e9901efad.json"
+  FIREBASE_CONFIG_PATH: "wondr-desktop-otp-firebase-adminsdk-fbsvc-779cc379ef.json"
   # DUKCAPIL_SERVICE_URL: "http://dukcapil-service.namespace-lain:8081"
   # BACKEND_BASE_URL: "http://backend-service.backend:8080"
