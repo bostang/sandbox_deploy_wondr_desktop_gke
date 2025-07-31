@@ -66,6 +66,7 @@ kubectl apply -f ./k8s/fe/fe-deployment.yaml
 kubectl apply -f ./k8s/fe/fe-service.yaml
 
 # network
+kubectl delete -f ./k8s/network/ingress.yaml
 kubectl apply -f ./k8s/network/ingress.yaml
 # kubectl apply -f k8s/network/be-db.yaml
 # kubectl apply -f k8s/network/ingress-to-be.yaml

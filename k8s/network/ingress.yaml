@@ -2,20 +2,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: my-app-ingress
-  annotations:
-    kubernetes.io/ingress.class: "nginx" # Jika Anda menggunakan Nginx Ingress Controller
-    nginx.ingress.kubernetes.io/rewrite-target: /$2 # Ini akan menghapus /api/auth dan mempertahankan sisanya
+  # annotations:
+    # nginx.ingress.kubernetes.io/rewrite-target: /$2 # Ini akan menghapus /api/auth dan mempertahankan sisanya
 spec:
   rules:
     - http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: frontend-service # Service frontend di namespace 'frontend'
-              port:
-                number: 80
         - path: /api/auth
           pathType: Prefix
           backend:
@@ -25,3 +17,10 @@ spec:
               name: backend-service
               port:
                 number: 8080 # Port service backend Anda
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: frontend-service # Service frontend di namespace 'frontend'
+              port:
+                number: 80
