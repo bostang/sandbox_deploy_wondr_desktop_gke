@@ -34,7 +34,8 @@ spec:
             name: app-secrets
         env: 
         - name: FIREBASE_CONFIG_PATH
-          value: model-parsec-465503-p3-firebase-adminsdk-fbsvc-1e9901efad.json
+          # value: model-parsec-465503-p3-firebase-adminsdk-fbsvc-1e9901efad.json
+          value: wondr-desktop-otp-firebase-adminsdk-fbsvc-779cc379ef.json
         - name: DB_HOST
           value: postgresql-service.backend
         - name: DB_URL
