@@ -125,10 +125,12 @@ kubectl apply -f ./k8s/fe/fe-deployment.yaml
 kubectl delete -f ./k8s/be/be-configmaps.yaml
 kubectl delete -f ./k8s/be/be-deployment.yaml
 kubectl delete -f ./k8s/be/be-service.yaml
+kubectl delete -f ./k8s/be/be-secrets.yaml
 
 kubectl apply -f ./k8s/be/be-configmaps.yaml
 kubectl apply -f ./k8s/be/be-deployment.yaml
 kubectl apply -f ./k8s/be/be-service.yaml
+kubectl apply -f ./k8s/be/be-secrets.yaml
 
 # catatan : http://http://34.8.228.44 merupakan endpoint dari ingress
 ```

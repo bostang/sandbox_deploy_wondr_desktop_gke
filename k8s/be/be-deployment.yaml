@@ -31,6 +31,8 @@ spec:
         envFrom:
         - configMapRef:
             name: backend-config
+        - configMapRef:
+            name: backend-secrets
         - secretRef:
             name: postgres-credentials
         env:
